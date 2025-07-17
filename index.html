@@ -708,6 +708,10 @@
             .conditional-section {
                 padding: 15px;
             }
+                    /* Agregamos un estilo para los nuevos campos de ubicación */
+            .conditional-section table tr td:only-child {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -777,11 +781,65 @@
                                     <option value="">Seleccione...</option>
                                     <option value="Comuna">Comuna</option>
                                     <option value="Fundacion">Fundación</option>
+                                    <!-- NUEVAS OPCIONES AGREGADAS -->
+                                    <option value="Cursos">Cursos</option>
+                                    <option value="Empresas">Empresas</option>
                                 </select>
                             </td>
                         </tr>
                     </table>
                     
+                     <!-- NUEVA SECCIÓN PARA DATOS DE UBICACIÓN -->
+                    <div id="ubicacionSection" class="conditional-section" style="display: none;">
+                        <h3>Datos de Ubicación</h3>
+                        <table>
+                            <tr>
+                                <td>
+                                    <label for="estado">Estado</label>
+                                    <select id="estado" required>
+                                        <option value="">Seleccione un estado</option>
+                                        <option value="Amazonas">Amazonas</option>
+                                        <option value="Anzoátegui">Anzoátegui</option>
+                                        <option value="Apure">Apure</option>
+                                        <option value="Aragua">Aragua</option>
+                                        <option value="Barinas">Barinas</option>
+                                        <option value="Bolívar">Bolívar</option>
+                                        <option value="Carabobo">Carabobo</option>
+                                        <option value="Cojedes">Cojedes</option>
+                                        <option value="Delta Amacuro">Delta Amacuro</option>
+                                        <option value="Distrito Capital">Distrito Capital</option>
+                                        <option value="Falcón">Falcón</option>
+                                        <option value="Guárico">Guárico</option>
+                                        <option value="Lara">Lara</option>
+                                        <option value="Mérida">Mérida</option>
+                                        <option value="Miranda">Miranda</option>
+                                        <option value="Monagas">Monagas</option>
+                                        <option value="Nueva Esparta">Nueva Esparta</option>
+                                        <option value="Portuguesa">Portuguesa</option>
+                                        <option value="Sucre">Sucre</option>
+                                        <option value="Táchira">Táchira</option>
+                                        <option value="Trujillo">Trujillo</option>
+                                        <option value="Vargas">Vargas</option>
+                                        <option value="Yaracuy">Yaracuy</option>
+                                        <option value="Zulia">Zulia</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="municipio">Municipio</label>
+                                    <input type="text" id="municipio" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="parroquia">Parroquia</label>
+                                    <input type="text" id="parroquia" required>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
                     <!-- Sección condicional para Comuna -->
                     <div id="comunaSection" class="conditional-section">
                         <h3>Datos de Comuna</h3>
@@ -792,11 +850,19 @@
                                     <select id="comuna">
                                         <option value="">Seleccione una comuna</option>
                                         <option value="Parque Central">Parque Central</option>
+                                        <!-- NUEVA OPCIÓN PARA AGREGAR COMUNA -->
+                                        <option value="Agregar Comuna">Agregar Comuna</option>
                                     </select>
                                 </td>
                             </tr>
                         </table>
                         
+                        <!-- CAMPO PARA NUEVA COMUNA -->
+                        <div id="nuevaComunaSection" class="conditional-section" style="display: none;">
+                            <label for="nuevaComuna">Nueva Comuna</label>
+                            <input type="text" id="nuevaComuna">
+                        </div>
+
                         <div id="residenciaSection" class="conditional-section">
                             <h3>Datos de Residencia</h3>
                             <table>
@@ -942,6 +1008,145 @@
             } else {
                 aptoSection.style.display = 'none';
             }
+            // Mostrar/ocultar secciones condicionales (MODIFICADA)
+        function toggleConditionalSections() {
+            const interes = document.getElementById('interes').value;
+            const comunaSection = document.getElementById('comunaSection');
+            const fundacionSection = document.getElementById('fundacionSection');
+            const ubicacionSection = document.getElementById('ubicacionSection');
+            
+            // Resetear campos al cambiar
+            document.getElementById('comuna').value = '';
+            document.getElementById('residencia').value = '';
+            document.getElementById('apto').value = '';
+            document.getElementById('fundaciones').value = '';
+            document.getElementById('residenciaSection').style.display = 'none';
+            document.getElementById('aptoSection').style.display = 'none';
+            document.getElementById('nuevaComunaSection').style.display = 'none';
+            
+            // Mostrar sección de ubicación si hay interés seleccionado
+            if (interes) {
+                ubicacionSection.style.display = 'block';
+            } else {
+                ubicacionSection.style.display = 'none';
+            }
+            
+            if (interes === 'Comuna') {
+                comunaSection.style.display = 'block';
+                fundacionSection.style.display = 'none';
+            } else if (interes === 'Fundacion') {
+                comunaSection.style.display = 'none';
+                fundacionSection.style.display = 'block';
+            } else if (interes === 'Cursos' || interes === 'Empresas') {
+                comunaSection.style.display = 'none';
+                fundacionSection.style.display = 'none';
+            } else {
+                comunaSection.style.display = 'none';
+                fundacionSection.style.display = 'none';
+            }
+        }
+        
+        // Mostrar campo para nueva comuna si se selecciona "Agregar Comuna"
+        function toggleNuevaComuna() {
+            const comuna = document.getElementById('comuna').value;
+            const nuevaComunaSection = document.getElementById('nuevaComunaSection');
+            
+            if (comuna === 'Agregar Comuna') {
+                nuevaComunaSection.style.display = 'block';
+            } else {
+                nuevaComunaSection.style.display = 'none';
+                document.getElementById('nuevaComuna').value = '';
+            }
+        }
+        
+        // Validar formulario (MODIFICADA)
+        function validarFormulario() {
+            // ... (validaciones anteriores se mantienen) ...
+            
+            // Validación de ubicación (siempre que haya interés)
+            const interes = document.getElementById('interes').value;
+            if (interes) {
+                const estado = document.getElementById('estado').value;
+                const municipio = document.getElementById('municipio').value;
+                const parroquia = document.getElementById('parroquia').value;
+                
+                if (!estado) {
+                    showModal('Error', 'Por favor seleccione un estado', false, true);
+                    return false;
+                }
+                
+                if (!municipio.trim()) {
+                    showModal('Error', 'Por favor ingrese el municipio', false, true);
+                    return false;
+                }
+                
+                if (!parroquia.trim()) {
+                    showModal('Error', 'Por favor ingrese la parroquia', false, true);
+                    return false;
+                }
+            }
+            
+            // Validación de comuna (si aplica)
+            if (interes === 'Comuna') {
+                const comuna = document.getElementById('comuna').value;
+                
+                if (comuna === 'Agregar Comuna') {
+                    const nuevaComuna = document.getElementById('nuevaComuna').value.trim();
+                    if (!nuevaComuna) {
+                        showModal('Error', 'Por favor ingrese el nombre de la nueva comuna', false, true);
+                        return false;
+                    }
+                } else if (!comuna) {
+                    showModal('Error', 'Por favor seleccione una comuna', false, true);
+                    return false;
+                }
+                
+                // ... (resto de validaciones de comuna se mantienen) ...
+            }
+            
+            return true;
+        }
+        
+        // Enviar datos a Google Sheets (MODIFICADA)
+        function enviarDatosGoogleSheets() {
+            // ... (código anterior) ...
+            
+            // Obtener valores del formulario
+            const formData = new FormData();
+            // ... (campos anteriores) ...
+            
+            // Capturar valor de comuna (puede ser selección o texto)
+            if (interes === 'Comuna') {
+                let comunaValor = '';
+                if (document.getElementById('comuna').value === 'Agregar Comuna') {
+                    comunaValor = document.getElementById('nuevaComuna').value;
+                } else {
+                    comunaValor = document.getElementById('comuna').value;
+                }
+                
+                formData.append('comuna', comunaValor);
+                // ... (resto de campos de comuna) ...
+            }
+            
+            // Agregar campos de ubicación
+            formData.append('estado', document.getElementById('estado').value);
+            formData.append('municipio', document.getElementById('municipio').value);
+            formData.append('parroquia', document.getElementById('parroquia').value);
+            
+            // ... (resto del envío se mantiene igual) ...
+        }
+        
+        // Configurar eventos (MODIFICADA)
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... (eventos anteriores) ...
+            
+            // Nuevos event listeners
+            document.getElementById('comuna').addEventListener('change', toggleNuevaComuna);
+            document.getElementById('interes').addEventListener('change', toggleConditionalSections);
+            
+            // Inicializar secciones
+            toggleConditionalSections();
+        });
         }
         
         // Filtrar opciones de apartamento según búsqueda
