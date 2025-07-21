@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #06d6a0;
+            --dark: #0f172a;
+            --darker: #0b1120;
+            --light: #f1f5f9;
+            --gray: #94a3b8;
+            --light-gray: #334155;
+            --danger: #ef4444;
+            --success: #10b981;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.35), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0b1120, #1e293b);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--darker);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        
+        .form-container {
+            padding: 35px 40px;
+        }
+        
+        .form-title {
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .form-column {
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gray);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--danger);
+        }
+        
+        .input-icon {
+            position: relative;
+        }
+        
+        .input-icon i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px 14px 42px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            transition: var(--transition);
+            background: rgba(30, 41, 59, 0.5);
+            color: var(--light);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            background: rgba(30, 41, 59, 0.7);
+        }
+        
+        input:focus + i, select:focus + i {
+            color: var(--primary);
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 18px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .checkbox-group {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: rgba(6, 214, 160, 0.05);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 400;
+            color: var(--light);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.35);
+        }
+        
+        .btn-submit:hover::before {
+            left: 100%;
+        }
+        
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+        
+        .btn-submit i {
+            margin-right: 10px;
+        }
+        
+        .interest-details {
+            background: rgba(67, 97, 238, 0.05);
+            border-left: 3px solid var(--primary);
+            padding: 20px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin-top: 25px;
+            transition: var(--transition);
+            animation: slideIn 0.4s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .interest-details h3 {
+            color: var(--light);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .interest-details h3 i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 25px;
+            background: var(--dark);
+            color: var(--light);
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .success-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            display: none; /* CORRECCIÓN: Inicialmente oculto */
+            align-items: center;
+            gap: 10px;
+            animation: slideDown 0.5s forwards;
+        }
+        
+        @keyframes slideDown {
+            from { top: -100px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
+        }
+        
+        /* Estilos para el buscador de apartamentos */
+        .search-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            background: var(--darker);
+            border: 2px solid var(--light-gray);
+            border-top: none;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+            box-shadow: var(--shadow-md);
+            z-index: 10;
+            display: none;
+        }
+        
+        .search-result-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+            border-bottom: 1px solid var(--light-gray);
+            color: var(--light);
+        }
+        
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .search-result-item:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+        }
+        
+        .apto-indicator {
+            margin-top: 8px;
+            font-size: 13px;
+            display: none;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+        }
+        
+        .valid {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .invalid {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .form-note {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 5px;
+            display: block;
+            font-style: italic;
+        }
+        
+        /* Animaciones para campos */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .error {
+            animation: shake 0.5s;
+            border-color: var(--danger) !important;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .form-container {
+                padding: 25px 20px;
+            }
+            
+            .logo-container {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 15px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+                background: var(--dark);
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                border: none;
+            }
+            
+            .header {
+                border-radius: 0;
+            }
+            
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            
+            .header p {
+                font-size: 0.95rem;
+            }
+            
+            .form-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mensaje de éxito - ahora correctamente oculto inicialmente -->
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i> ¡Registro enviado con éxito!
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <span class="logo" style="font-size: 2.5rem;">🌎</span>
+            </div>
+            <div class="header-content">
+                <h1>Combomedia</h1>
+                <p>Completa el formulario para unirte a nuestra comunidad y acceder a todos nuestros beneficios</p>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <h2 class="form-title">Formulario de Registro</h2>
+            <form id="registrationForm">
+                <div class="form-row">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="cedula" class="required">Cédula</label>
+                            <div class="input-icon">
+                                <input type="text" id="cedula" name="cedula" required placeholder="Ej: 12345678">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nombre" class="required">Nombre</label>
+                            <div class="input-icon">
+                                <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="apellido" class="required">Apellido</label>
+                            <div class="input-icon">
+                                <input type="text" id="apellido" name="apellido" required placeholder="Tu apellido">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="email" class="required">Correo Electrónico</label>
+                            <div class="input-icon">
+                                <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono" class="required">Teléfono</label>
+                            <div class="input-icon">
+                                <input type="tel" id="telefono" name="telefono" required placeholder="Ej: 04121234567">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nacimiento" class="required">Fecha de Nacimiento</label>
+                            <div class="input-icon">
+                                <input type="date" id="nacimiento" name="nacimiento" required>
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <span class="form-note">Debes tener al menos 18 años</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="sexo" class="required">Sexo</label>
+                            <div class="input-icon">
+                                <select id="sexo" name="sexo" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                                <i class="fas fa-venus-mars"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="estado" class="required">Estado</label>
+                            <div class="input-icon">
+                                <select id="estado" name="estado" required>
+                                    <option value="">Seleccione un estado...</option>
+                                    <option value="Amazonas">Amazonas</option>
+                                    <option value="Anzoátegui">Anzoátegui</option>
+                                    <option value="Apure">Apure</option>
+                                    <option value="Aragua">Aragua</option>
+                                    <option value="Barinas">Barinas</option>
+                                    <option value="Bolívar">Bolívar</option>
+                                    <option value="Carabobo">Carabobo</option>
+                                    <option value="Cojedes">Cojedes</option>
+                                    <option value="Delta Amacuro">Delta Amacuro</option>
+                                    <option value="Distrito Capital">Distrito Capital</option>
+                                    <option value="Falcón">Falcón</option>
+                                    <option value="Guárico">Guárico</option>
+                                    <option value="Lara">Lara</option>
+                                    <option value="Mérida">Mérida</option>
+                                    <option value="Miranda">Miranda</option>
+                                    <option value="Monagas">Monagas</option>
+                                    <option value="Nueva Esparta">Nueva Esparta</option>
+                                    <option value="Portuguesa">Portuguesa</option>
+                                    <option value="Sucre">Sucre</option>
+                                    <option value="Táchira">Táchira</option>
+                                    <option value="Trujillo">Trujillo</option>
+                                    <option value="Vargas">Vargas</option>
+                                    <option value="Yaracuy">Yaracuy</option>
+                                    <option value="Zulia">Zulia</option>
+                                </select>
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="municipio" class="required">Municipio</label>
+                    <div class="input-icon">
+                        <input type="text" id="municipio" name="municipio" required placeholder="Nombre del municipio">
+                        <i class="fas fa-city"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="parroquia" class="required">Parroquia</label>
+                    <div class="input-icon">
+                        <input type="text" id="parroquia" name="parroquia" required placeholder="Nombre de la parroquia">
+                        <i class="fas fa-map-pin"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="interes" class="required">Interés</label>
+                    <div class="input-icon">
+                        <select id="interes" name="interes" required onchange="toggleInterestDetails()">
+                            <option value="">Seleccione su interés...</option>
+                            <option value="Comuna">Comuna</option>
+                            <option value="Fundación">Fundación</option>
+                            <option value="Cursos">Cursos</option>
+                            <option value="Empresa">Empresa</option>
+                        </select>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div id="comunaDetails" class="interest-details hidden">
+                    <h3><i class="fas fa-users"></i> Detalles de Comuna</h3>
+                    <div class="form-group">
+                        <label for="comunaOption">Opción de Comuna</label>
+                        <div class="input-icon">
+                            <select id="comunaOption" name="comunaOption" onchange="toggleComunaOptions()">
+                                <option value="">Seleccione...</option>
+                                <option value="agregar">Agregar Comuna</option>
+                                <option value="parque">Parqué Central</option>
+                            </select>
+                            <i class="fas fa-people-group"></i>
+                        </div>
+                    </div>
+                    
+                    <div id="nuevaComunaGroup" class="form-group hidden">
+                        <label for="nuevaComuna">Nombre de Nueva Comuna</label>
+                        <div class="input-icon">
+                            <input type="text" id="nuevaComuna" name="nuevaComuna" placeholder="Escriba el nombre de la nueva comuna">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                    </div>
+                    
+                    <div id="parqueCentralGroup" class="hidden">
+                        <div class="form-group">
+                            <label for="residencia">Residencia</label>
+                            <div class="input-icon">
+                                <select id="residencia" name="residencia" onchange="toggleAptoField()">
+                                    <option value="">Seleccione...</option>
+                                    <option value="Tejar">Tejar</option>
+                                    <option value="San Martin">San Martin</option>
+                                    <option value="Mohedano">Mohedano</option>
+                                    <option value="Anauco">Anauco</option>
+                                    <option value="Tajama">Tajama</option>
+                                    <option value="Catuche">Catuche</option>
+                                    <option value="Caroata">Caroata</option>
+                                    <option value="Tacagua">Tacagua</option>
+                                </select>
+                                <i class="fas fa-home"></i>
+                            </div>
+                        </div>
+                        
+                        <div id="aptoGroup" class="form-group hidden">
+                            <label for="apto">Apto</label>
+                            <div class="search-container">
+                                <div class="input-icon">
+                                    <input type="text" id="apto" name="apto" placeholder="Escriba para buscar..." 
+                                           oninput="searchAptos(this.value)">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <div class="search-results" id="aptoResults"></div>
+                            </div>
+                            <div class="apto-indicator" id="aptoIndicator"></div>
+                        </div>
+                        
+                        <div id="terminosGroup" class="checkbox-group hidden">
+                            <input type="checkbox" id="terminos" name="terminos">
+                            <label for="terminos">Acepta los términos de atributos a Hidrocapital</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="fundacionDetails" class="interest-details hidden">
+                    <h3><i class="fas fa-hands-helping"></i> Detalles de Fundación</h3>
+                    <div class="form-group">
+                        <label for="fundacion">Fundaciones</label>
+                        <div class="input-icon">
+                            <select id="fundacion" name="fundacion">
+                                <option value="">Seleccione...</option>
+                                <option value="mision_ribas">Misión Ribas</option>
+                                <option value="causa_campesina">Fundación Causa Campesina</option>
+                                <option value="observatorio">Observatorio Popular de medios</option>
+                                <option value="Proyecto Comuna Venezuela">Proyecto Comuna Venezuela</option>
+                            </select>
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="cursosDetails" class="interest-details hidden">
+                    <h3><i class="fas fa-graduation-cap"></i> Detalles de Cursos</h3>
+                    <div class="form-group">
+                        <label for="cursos">Cursos</label>
+                        <div class="input-icon">
+                            <select id="cursos" name="cursos">
+                                <option value="">Seleccione...</option>
+                                <option value="proximamente">Próximamente</option>
+                            </select>
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="empresaDetails" class="interest-details hidden">
+                    <h3><i class="fas fa-building"></i> Detalles de Empresa</h3>
+                    <div class="form-group">
+                        <label for="empresa">Empresa</label>
+                        <div class="input-icon">
+                            <input type="text" id="empresa" name="empresa" placeholder="Nombre de la empresa">
+                            <i class="fas fa-building"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <input type="hidden" id="fechaEnvio" name="fechaEnvio">
+                
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> Enviar Registro
+                </button>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2025 Combomedia. Todos los derechos reservados. | 
+            <a href="#">Política de Privacidad</a> | <a href="#">Términos de Uso</a></p>
+            <p class="small-text" style="margin-top: 10px; font-size: 13px; color: var(--gray);">Datos enviados directamente a nuestra base de datos</p>
+        </div>
+    </div>
+
+    <script>
+        // URL del script de Google Apps Script
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzMIOZwVYGCw2QQvd4jNn8c-wXFjaGyIkg2ju1qrG_ozCSupfgxGI5-fc6QiuDOIPUa/exec';
+        
+        // Opciones válidas para apartamentos
+        const opcionesApto = ["01A",	"01B",	"01C",	"01D",	"01E",	"01F",	"01G",	"01H",	"01J",	"01K",	"01L",	"01M",	"01N",	"01P",	"01Q",	"01R",	"01S",	"01T",	"01U",	"01V",	"02A",	"02B",	"02C",	"02D",	"02E",	"02F",	"02G",	"02H",	"02J",	"02K",	"02L",	"02M",	"02N",	"02P",	"02Q",	"02R",	"02S",	"02T",	"02U",	"02V",	"03A",	"03B",	"03C",	"03D",	"03E",	"03F",	"03G",	"03H",	"03J",	"03K",	"03L",	"03N",	"03M",	"04A",	"04B",	"04C",	"04D",	"04E",	"04F",	"04G",	"04H",	"04J",	"04K",	"04L",	"04M",	"04N",	"05A",	"05B",	"05C",	"05D",	"05E",	"05F",	"05G",	"05H",	"05J",	"05K",	"05L",	"05M",	"05N",	"06A",	"06B",	"06C",	"06D",	"06E",	"06F",	"06G",	"06H",	"06J",	"06K",	"06L",	"06M",	"06N",	"06P",	"06Q",	"07A",	"07B",	"07C",	"07D",	"07E",	"07F",	"07G",	"07H",	"07J",	"07K",	"07L",	"07M",	"07N",	"07P",	"07Q",	"08A",	"08B",	"08C",	"08D",	"08E",	"08F",	"08G",	"08H",	"08J",	"08K",	"08L",	"08M",	"08N",	"08P",	"08Q",	"09A",	"09B",	"09C",	"09D",	"09E",	"09F",	"09G",	"09H",	"09J",	"09K",	"09L",	"09M",	"09N",	"09P",	"09Q",	"10A",	"10B",	"10C",	"10D",	"10E",	"10F",	"10G",	"10H",	"10J",	"10K",	"10L",	"10M",	"10N",	"10P",	"10Q",	"11A",	"11B",	"11C",	"11D",	"11E",	"11F",	"11G",	"11H",	"11J",	"11K",	"11L",	"11M",	"11N",	"11P",	"11Q",	"12A",	"12B",	"12C",	"12D",	"12E",	"12F",	"12G",	"12H",	"12J",	"12K",	"12L",	"12M",	"12N",	"12P",	"12Q",	"13A",	"13B",	"13C",	"13D",	"13E",	"13F",	"13G",	"13H",	"13J",	"13K",	"13L",	"13M",	"13N",	"13P",	"13Q",	"14A",	"14B",	"14C",	"14D",	"14E",	"14F",	"14G",	"14H",	"14J",	"14K",	"14L",	"14M",	"14N",	"14P",	"14Q",	"15A",	"15B",	"15C",	"15D",	"15E",	"15F",	"15G",	"15H",	"15J",	"15K",	"15L",	"15M",	"15N",	"15P",	"15Q",	"16A",	"16B",	"16C",	"16D",	"16E",	"16F",	"16G",	"16H",	"16J",	"16K",	"16L",	"16M",	"16N",	"16P",	"16Q",	"17A",	"17B",	"17C",	"17D",	"17E",	"17F",	"17G",	"17H",	"17J",	"17K",	"17L",	"17M",	"17N",	"17P",	"17Q",	"18A",	"18B",	"18C",	"18D",	"18E",	"18F",	"18G",	"18H",	"18J",	"18K",	"18L",	"18M",	"18N",	"18P",	"18Q",	"19A",	"19B",	"19C",	"19D",	"19E",	"19F",	"19G",	"19H",	"19J",	"19K",	"19L",	"19M",	"19N",	"19P",	"19Q",	"OF101",	"OF102",	"OF103",	"OF104",	"OF105",	"OF106",	"OF107",	"OF108",	"OF109",	"OF110",	"OF111",	"OF112",	"OF113",	"OF114",	"OF115",	"OF116",	"OF117",	"OF118",	"OF119",	"OF120",	"OF201",	"OF202",	"OF203",	"OF204",	"OF205",	"OF206",	"OF207",	"OF208",	"OF209",	"OF210",	"OF211",	"OF212",	"OF213",	"OF214",	"OF215",	"OF216",	"OF217",	"OF218",	"OF219",	"OF220",	"PH"];
+        
+        // Función para buscar apartamentos
+        function searchAptos(query) {
+            const resultsContainer = document.getElementById('aptoResults');
+            const indicator = document.getElementById('aptoIndicator');
+            
+            // Limpiar resultados anteriores
+            resultsContainer.innerHTML = '';
+            resultsContainer.style.display = 'none';
+            
+            // Validar el apto escrito
+            const isValid = validarApto();
+            
+            if (query.trim() === '') {
+                return;
+            }
+            
+            // Filtrar opciones
+            const filtered = opcionesApto.filter(option => 
+                option.toLowerCase().includes(query.toLowerCase())
+            );
+            
+            if (filtered.length > 0) {
+                // Mostrar resultados
+                filtered.forEach(apto => {
+                    const item = document.createElement('div');
+                    item.className = 'search-result-item';
+                    item.textContent = apto;
+                    item.onclick = () => {
+                        document.getElementById('apto').value = apto;
+                        resultsContainer.style.display = 'none';
+                        validarApto();
+                    };
+                    resultsContainer.appendChild(item);
+                });
+                
+                resultsContainer.style.display = 'block';
+            }
+        }
+        
+        // Validar si el apto seleccionado es válido
+        function validarApto() {
+            const aptoInput = document.getElementById('apto');
+            const apto = aptoInput.value;
+            const indicator = document.getElementById('aptoIndicator');
+            
+            const isValid = opcionesApto.includes(apto);
+            
+            if (apto) {
+                indicator.style.display = 'block';
+                if (isValid) {
+                    indicator.innerHTML = '<i class="fas fa-check-circle"></i> Apartamento válido';
+                    indicator.className = 'apto-indicator valid';
+                    aptoInput.style.borderColor = '#10b981';
+                } else {
+                    indicator.innerHTML = '<i class="fas fa-exclamation-circle"></i> Apartamento inválido';
+                    indicator.className = 'apto-indicator invalid';
+                    aptoInput.style.borderColor = '#ef4444';
+                }
+            } else {
+                indicator.style.display = 'none';
+                aptoInput.style.borderColor = '#334155';
+            }
+            
+            return isValid;
+        }
+        
+        // Cerrar resultados al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                document.getElementById('aptoResults').style.display = 'none';
+            }
+        });
+        
+        // Función para mostrar/ocultar secciones según el interés seleccionado
+        function toggleInterestDetails() {
+            const interes = document.getElementById('interes').value;
+            
+            // Ocultar todas las secciones primero
+            document.getElementById('comunaDetails').classList.add('hidden');
+            document.getElementById('fundacionDetails').classList.add('hidden');
+            document.getElementById('cursosDetails').classList.add('hidden');
+            document.getElementById('empresaDetails').classList.add('hidden');
+            
+            // Mostrar la sección correspondiente
+            if (interes === 'Comuna') {
+                document.getElementById('comunaDetails').classList.remove('hidden');
+            } else if (interes === 'Fundación') {
+                document.getElementById('fundacionDetails').classList.remove('hidden');
+            } else if (interes === 'Cursos') {
+                document.getElementById('cursosDetails').classList.remove('hidden');
+            } else if (interes === 'Empresa') {
+                document.getElementById('empresaDetails').classList.remove('hidden');
+            }
+        }
+        
+        // Función para mostrar campos adicionales según la opción de comuna
+        function toggleComunaOptions() {
+            const comunaOption = document.getElementById('comunaOption').value;
+            
+            // Ocultar todos los grupos primero
+            document.getElementById('nuevaComunaGroup').classList.add('hidden');
+            document.getElementById('parqueCentralGroup').classList.add('hidden');
+            document.getElementById('aptoGroup').classList.add('hidden');
+            document.getElementById('terminosGroup').classList.add('hidden');
+            
+            // Mostrar grupos según la opción seleccionada
+            if (comunaOption === 'agregar') {
+                document.getElementById('nuevaComunaGroup').classList.remove('hidden');
+            } else if (comunaOption === 'parque') {
+                document.getElementById('parqueCentralGroup').classList.remove('hidden');
+            }
+        }
+        
+        // Función para mostrar campo de apto y términos cuando se selecciona una residencia
+        function toggleAptoField() {
+            const residencia = document.getElementById('residencia').value;
+            
+            if (residencia) {
+                document.getElementById('aptoGroup').classList.remove('hidden');
+                document.getElementById('terminosGroup').classList.remove('hidden');
+            } else {
+                document.getElementById('aptoGroup').classList.add('hidden');
+                document.getElementById('terminosGroup').classList.add('hidden');
+            }
+        }
+        
+        // Función para enviar el formulario a Google Sheets
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Establecer la fecha actual en el campo oculto
+            const now = new Date();
+            document.getElementById('fechaEnvio').value = now.toISOString();
+            
+            // Validación básica
+            const requiredFields = document.querySelectorAll('[required]');
+            let valid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    valid = false;
+                    field.classList.add('error');
+                    setTimeout(() => field.classList.remove('error'), 500);
+                } else {
+                    field.style.borderColor = '#334155';
+                }
+            });
+            
+            // Validar apartamento si es necesario
+            if (document.getElementById('aptoGroup') && 
+                !document.getElementById('aptoGroup').classList.contains('hidden')) {
+                if (!validarApto()) {
+                    valid = false;
+                    document.getElementById('apto').classList.add('error');
+                    setTimeout(() => document.getElementById('apto').classList.remove('error'), 500);
+                }
+            }
+            
+            if (!valid) {
+                alert('Por favor, complete todos los campos obligatorios correctamente.');
+                return;
+            }
+            
+            // Mostrar estado de carga
+            const submitBtn = document.querySelector('.btn-submit');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+            
+            // Crear objeto FormData
+            const formData = new FormData(this);
+            
+            // Enviar datos a Google Sheets
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    if (response.ok) {
+                        // Mostrar mensaje de éxito
+                        const successMessage = document.getElementById('successMessage');
+                        successMessage.style.display = 'flex';
+                        
+                        // Ocultar mensaje después de 3 segundos
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 3000);
+                        
+                        // Resetear formulario
+                        this.reset();
+                        
+                        // Ocultar todas las secciones de interés
+                        document.getElementById('comunaDetails').classList.add('hidden');
+                        document.getElementById('fundacionDetails').classList.add('hidden');
+                        document.getElementById('cursosDetails').classList.add('hidden');
+                        document.getElementById('empresaDetails').classList.add('hidden');
+                        
+                        // Ocultar indicador de apto
+                        document.getElementById('aptoIndicator').style.display = 'none';
+                    } else {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Hubo un error al enviar el formulario. Por favor, inténtelo de nuevo.');
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                });
+        });
+        
+        // Inicialización: establecer fecha mínima para fecha de nacimiento (18 años atrás)
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const minDate = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
+            const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+            
+            document.getElementById('nacimiento').min = minDate.toISOString().split('T')[0];
+            document.getElementById('nacimiento').max = maxDate.toISOString().split('T')[0];
+            
+            // Inicializar animaciones
+            document.querySelectorAll('input, select').forEach(el => {
+                el.addEventListener('focus', function() {
+                    this.style.borderColor = '#6366f1';
+                    this.previousElementSibling.style.color = '#6366f1';
+                });
+                el.addEventListener('blur', function() {
+                    this.style.borderColor = '#334155';
+                    this.previousElementSibling.style.color = '#94a3b8';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
