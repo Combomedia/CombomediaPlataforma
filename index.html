@@ -34,7 +34,6 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0b1120, #1e293b);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -42,6 +41,23 @@
             padding: 20px;
             color: var(--light);
             line-height: 1.6;
+            /* Fondo animado con efecto fluido más contrastado */
+            background: linear-gradient(135deg, #0a0f1c, #1a2438, #0a0f1c, #223a5e);
+            background-size: 300% 300%;
+            animation: fluidBackground 12s ease infinite;
+            /* Efecto de aparición inicial más rápido */
+            animation: fluidBackground 12s ease infinite, pageStart 0.8s ease-out;
+        }
+        
+        @keyframes fluidBackground {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        @keyframes pageStart {
+            from { opacity: 0; filter: blur(10px); }
+            to { opacity: 1; filter: blur(0); }
         }
         
         .container {
@@ -67,6 +83,21 @@
             text-align: center;
             position: relative;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        
+        /* Efecto de burbujas en el fondo del encabezado */
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
+            z-index: 1;
         }
         
         .header-content {
@@ -85,19 +116,37 @@
             margin: 0 auto 20px;
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            animation: pulse 2s infinite;
+            /* Nuevas sombras más pronunciadas para efecto 3D */
+            box-shadow: 
+                0 0 0 10px rgba(255, 255, 255, 0.05),
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            /* Nueva animación de pulso con rotación */
+            animation: pulseAndRotate 4s ease-in-out infinite;
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        @keyframes pulseAndRotate {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.05) rotate(5deg); }
+            50% { transform: scale(1.1) rotate(0deg); }
+            75% { transform: scale(1.05) rotate(-5deg); }
+            100% { transform: scale(1) rotate(0deg); }
         }
         
         .logo {
             font-size: 2.5rem;
             color: white;
+            transition: transform 0.5s ease;
+        }
+        
+        .logo.changing {
+            animation: emojiBlurChange 0.5s ease-out;
+        }
+        
+        @keyframes emojiBlurChange {
+            0% { transform: scale(1); filter: blur(0); opacity: 1; }
+            50% { transform: scale(0.5); filter: blur(5px); opacity: 0; }
+            100% { transform: scale(1); filter: blur(0); opacity: 1; }
         }
         
         .header h1 {
@@ -353,7 +402,7 @@
             border-radius: var(--radius-sm);
             box-shadow: var(--shadow-lg);
             z-index: 1000;
-            display: none; /* CORRECCIÓN: Inicialmente oculto */
+            display: none;
             align-items: center;
             gap: 10px;
             animation: slideDown 0.5s forwards;
@@ -509,7 +558,7 @@
     </style>
 </head>
 <body>
-    <!-- Mensaje de éxito - ahora correctamente oculto inicialmente -->
+    <!-- Mensaje de éxito -->
     <div class="success-message" id="successMessage">
         <i class="fas fa-check-circle"></i> ¡Registro enviado con éxito!
     </div>
@@ -517,7 +566,7 @@
     <div class="container">
         <div class="header">
             <div class="logo-container">
-                <span class="logo" style="font-size: 2.5rem;">🌎</span>
+                <span class="logo" id="logoEmoji" style="font-size: 2.5rem;">🌎</span>
             </div>
             <div class="header-content">
                 <h1>Combomedia</h1>
@@ -790,6 +839,26 @@
         
         // Opciones válidas para apartamentos
         const opcionesApto = ["01A",	"01B",	"01C",	"01D",	"01E",	"01F",	"01G",	"01H",	"01J",	"01K",	"01L",	"01M",	"01N",	"01P",	"01Q",	"01R",	"01S",	"01T",	"01U",	"01V",	"02A",	"02B",	"02C",	"02D",	"02E",	"02F",	"02G",	"02H",	"02J",	"02K",	"02L",	"02M",	"02N",	"02P",	"02Q",	"02R",	"02S",	"02T",	"02U",	"02V",	"03A",	"03B",	"03C",	"03D",	"03E",	"03F",	"03G",	"03H",	"03J",	"03K",	"03L",	"03N",	"03M",	"04A",	"04B",	"04C",	"04D",	"04E",	"04F",	"04G",	"04H",	"04J",	"04K",	"04L",	"04M",	"04N",	"05A",	"05B",	"05C",	"05D",	"05E",	"05F",	"05G",	"05H",	"05J",	"05K",	"05L",	"05M",	"05N",	"06A",	"06B",	"06C",	"06D",	"06E",	"06F",	"06G",	"06H",	"06J",	"06K",	"06L",	"06M",	"06N",	"06P",	"06Q",	"07A",	"07B",	"07C",	"07D",	"07E",	"07F",	"07G",	"07H",	"07J",	"07K",	"07L",	"07M",	"07N",	"07P",	"07Q",	"08A",	"08B",	"08C",	"08D",	"08E",	"08F",	"08G",	"08H",	"08J",	"08K",	"08L",	"08M",	"08N",	"08P",	"08Q",	"09A",	"09B",	"09C",	"09D",	"09E",	"09F",	"09G",	"09H",	"09J",	"09K",	"09L",	"09M",	"09N",	"09P",	"09Q",	"10A",	"10B",	"10C",	"10D",	"10E",	"10F",	"10G",	"10H",	"10J",	"10K",	"10L",	"10M",	"10N",	"10P",	"10Q",	"11A",	"11B",	"11C",	"11D",	"11E",	"11F",	"11G",	"11H",	"11J",	"11K",	"11L",	"11M",	"11N",	"11P",	"11Q",	"12A",	"12B",	"12C",	"12D",	"12E",	"12F",	"12G",	"12H",	"12J",	"12K",	"12L",	"12M",	"12N",	"12P",	"12Q",	"13A",	"13B",	"13C",	"13D",	"13E",	"13F",	"13G",	"13H",	"13J",	"13K",	"13L",	"13M",	"13N",	"13P",	"13Q",	"14A",	"14B",	"14C",	"14D",	"14E",	"14F",	"14G",	"14H",	"14J",	"14K",	"14L",	"14M",	"14N",	"14P",	"14Q",	"15A",	"15B",	"15C",	"15D",	"15E",	"15F",	"15G",	"15H",	"15J",	"15K",	"15L",	"15M",	"15N",	"15P",	"15Q",	"16A",	"16B",	"16C",	"16D",	"16E",	"16F",	"16G",	"16H",	"16J",	"16K",	"16L",	"16M",	"16N",	"16P",	"16Q",	"17A",	"17B",	"17C",	"17D",	"17E",	"17F",	"17G",	"17H",	"17J",	"17K",	"17L",	"17M",	"17N",	"17P",	"17Q",	"18A",	"18B",	"18C",	"18D",	"18E",	"18F",	"18G",	"18H",	"18J",	"18K",	"18L",	"18M",	"18N",	"18P",	"18Q",	"19A",	"19B",	"19C",	"19D",	"19E",	"19F",	"19G",	"19H",	"19J",	"19K",	"19L",	"19M",	"19N",	"19P",	"19Q",	"OF101",	"OF102",	"OF103",	"OF104",	"OF105",	"OF106",	"OF107",	"OF108",	"OF109",	"OF110",	"OF111",	"OF112",	"OF113",	"OF114",	"OF115",	"OF116",	"OF117",	"OF118",	"OF119",	"OF120",	"OF201",	"OF202",	"OF203",	"OF204",	"OF205",	"OF206",	"OF207",	"OF208",	"OF209",	"OF210",	"OF211",	"OF212",	"OF213",	"OF214",	"OF215",	"OF216",	"OF217",	"OF218",	"OF219",	"OF220",	"PH"];
+        
+        // Emojis para rotación
+        const emojis = ['🌎', '🌐', '🗳️', '✅', '🎓'];
+        let currentEmojiIndex = 0;
+        const logoEmoji = document.getElementById('logoEmoji');
+        
+        // Función para cambiar el emoji con animación de desenfoque
+        function changeEmoji() {
+            currentEmojiIndex = (currentEmojiIndex + 1) % emojis.length;
+            // Agregamos clase para animar
+            logoEmoji.classList.add('changing');
+            // Cambiamos el emoji después de un pequeño retardo para que se vea la animación
+            setTimeout(() => {
+                logoEmoji.textContent = emojis[currentEmojiIndex];
+                logoEmoji.classList.remove('changing');
+            }, 250); // La animación dura 0.5s, pero cambiamos en la mitad
+        }
+        
+        // Iniciar la rotación de emojis
+        setInterval(changeEmoji, 2000);
         
         // Función para buscar apartamentos
         function searchAptos(query) {
